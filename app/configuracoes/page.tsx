@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -8,8 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator"
 import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
+import { AdvancedSettings } from "@/components/settings/advanced-settings"
 
-export default function Configuracoes() {
+export default function ConfiguracoesPage() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
@@ -351,6 +354,7 @@ export default function Configuracoes() {
           </Card>
         </TabsContent>
       </Tabs>
+      <AdvancedSettings />
     </div>
   )
 }

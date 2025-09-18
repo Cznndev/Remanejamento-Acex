@@ -1,92 +1,155 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
 import {
-  BarChart3,
-  Users,
+  LayoutDashboard,
+  TrendingUp,
+  PieChart,
   GraduationCap,
+  Users,
   BookOpen,
   Clock,
-  Home,
+  Building,
   Calendar,
   RefreshCw,
-  FileText,
   Settings,
-  Activity,
-  Zap,
-  Brain,
-  Target,
-  Cpu,
+  BarChart3,
+  Puzzle,
+  CheckSquare,
 } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { UserProfile } from "@/components/auth/user-profile"
+import Image from "next/image"
 
 const navItems = [
-  { name: "Dashboard", href: "/", icon: BarChart3 },
-  { name: "Dashboard Avançado", href: "/dashboard-avancado", icon: Activity },
-  { name: "Dashboard Executivo", href: "/dashboard-executivo", icon: Target },
-  { name: "Machine Learning", href: "/machine-learning", icon: Brain },
-  { name: "Tecnologias Avançadas", href: "/tecnologias-avancadas", icon: Cpu },
-  { name: "Gestão Acadêmica", href: "/gestao-academica", icon: GraduationCap }, // Nova linha
-  { name: "Professores", href: "/professores", icon: Users },
-  { name: "Turmas", href: "/turmas", icon: GraduationCap },
-  { name: "Disciplinas", href: "/disciplinas", icon: BookOpen },
-  { name: "Horários", href: "/horarios", icon: Clock },
-  { name: "Salas", href: "/salas", icon: Home },
-  { name: "Cronograma", href: "/cronograma", icon: Calendar },
-  { name: "Remanejamento", href: "/remanejamento", icon: RefreshCw },
-  { name: "Integrações", href: "/integracoes", icon: Zap },
-  { name: "Relatórios", href: "/relatorios", icon: FileText },
-  { name: "Configurações", href: "/configuracoes", icon: Settings },
+  {
+    title: "Dashboard",
+    href: "/",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Dashboard Avançado",
+    href: "/dashboard-avancado",
+    icon: TrendingUp,
+  },
+  {
+    title: "Dashboard Executivo",
+    href: "/dashboard-executivo",
+    icon: PieChart,
+  },
+  {
+    title: "Gestão Acadêmica",
+    href: "/gestao-academica",
+    icon: GraduationCap,
+  },
+  {
+    title: "Professores",
+    href: "/professores",
+    icon: Users,
+  },
+  {
+    title: "Turmas",
+    href: "/turmas",
+    icon: Users,
+  },
+  {
+    title: "Disciplinas",
+    href: "/disciplinas",
+    icon: BookOpen,
+  },
+  {
+    title: "Horários",
+    href: "/horarios",
+    icon: Clock,
+  },
+  {
+    title: "Salas",
+    href: "/salas",
+    icon: Building,
+  },
+  {
+    title: "Cronograma",
+    href: "/cronograma",
+    icon: Calendar,
+  },
+  {
+    title: "Remanejamento",
+    href: "/remanejamento",
+    icon: RefreshCw,
+  },
+  {
+    title: "Aprovações",
+    href: "/aprovacoes",
+    icon: CheckSquare,
+  },
+  {
+    title: "Integrações",
+    href: "/integracoes",
+    icon: Puzzle,
+  },
+  {
+    title: "Relatórios",
+    href: "/relatorios",
+    icon: BarChart3,
+  },
+  {
+    title: "Configurações",
+    href: "/configuracoes",
+    icon: Settings,
+  },
 ]
 
 export function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="w-64 border-r bg-background h-full flex flex-col">
-      <div className="p-4 border-b bg-gradient-to-r from-brand-red-500 to-brand-orange-500">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="relative w-10 h-10 flex-shrink-0">
-            <Image
-              src="/images/colegio-plus-logo.png"
-              alt="Colégio Plus"
-              width={40}
-              height={40}
-              className="object-contain"
-            />
-          </div>
-          <div className="text-white">
-            <h1 className="text-lg font-bold">Colégio Plus</h1>
-            <p className="text-xs opacity-90">Sistema de Gestão</p>
-          </div>
+    <div className="hidden lg:flex h-screen w-64 flex-col fixed left-0 top-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
+      {/* Header */}
+      <div className="flex items-center gap-3 p-6 border-b border-gray-200 dark:border-gray-800">
+        <div className="relative w-10 h-10">
+          <Image src="/images/colegio-plus-logo.png" alt="Colégio Plus" width={40} height={40} className="rounded-lg" />
         </div>
-        <div className="text-xs text-white/80">Remanejamento de Aulas</div>
+        <div>
+          <h1 className="font-bold text-lg bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">
+            Colégio Plus
+          </h1>
+          <p className="text-xs text-gray-600 dark:text-gray-400">Sistema de Gestão</p>
+          <p className="text-xs text-gray-500 dark:text-gray-500">Remanejamento de Aulas</p>
+        </div>
       </div>
-      <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
-        {navItems.map((item) => {
-          const Icon = item.icon
-          const isActive = pathname === item.href
-          return (
-            <Link key={item.href} href={item.href}>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "w-full justify-start text-sm",
-                  isActive && "bg-brand-red-50 text-brand-red-700 border-r-2 border-brand-red-500",
-                )}
-              >
-                <Icon className={cn("mr-2 h-4 w-4", isActive ? "text-brand-red-600" : "text-muted-foreground")} />
-                <span className={cn(isActive ? "font-medium" : "font-normal")}>{item.name}</span>
-              </Button>
-            </Link>
-          )
-        })}
+
+      {/* Navigation */}
+      <nav className="flex-1 overflow-y-auto p-4">
+        <ul className="space-y-1">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                    isActive
+                      ? "bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-md"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100",
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.title}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
       </nav>
-      <div className="p-4 border-t bg-muted/30">
+
+      {/* Footer */}
+      <div className="border-t border-gray-200 dark:border-gray-800 p-4 space-y-4">
+        <div className="flex items-center justify-between">
+          <ThemeToggle />
+        </div>
         <UserProfile />
       </div>
     </div>
